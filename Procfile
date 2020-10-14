@@ -1,0 +1,1 @@
+web: gunicorn rsvp.wsgi:application --log-file -

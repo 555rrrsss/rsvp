@@ -1,0 +1,39 @@
+.plyr__control plyr__control--pressed,
+.plyr--audio .plyr__control.plyr__tab-focus,
+.plyr--audio .plyr__control:hover,
+.plyr--audio .plyr__control[aria-expanded=true] {
+  background: none !important;
+  color: #222 !important;
+}
+
+.plyr--video .plyr__control.plyr__tab-focus,
+.plyr--video .plyr__control:hover,
+.plyr--video .plyr__control[aria-expanded=true] {
+  background: #f5f5f5;
+  color: #333;
+}
+
+.plyr__menu__container .plyr__control[role=menuitemradio][aria-checked=true]::before {
+  background: #333;
+}
+
+.plyr__control--overlaid {
+  background: rgba(228, 228, 228, 0.8) !important;
+  color: #333;
+}
+
+.plyr--full-ui input[type=range] {
+  color: #f5f5f5 !important;
+}
+
+.plyr__volume input[type=range] {
+  color: #f5f5f5 !important;
+}
+
+.plyr {
+  border-radius: 0rem
+}
+
+.plyr--audio .plyr__controls {
+  padding: none !important;
+}

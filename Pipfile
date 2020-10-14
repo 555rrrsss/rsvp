@@ -1,0 +1,19 @@
+[[source]]
+name = "pypi"
+url = "https://pypi.org/simple"
+verify_ssl = true
+
+[dev-packages]
+
+[packages]
+Django = "*"
+django-allauth = "*"
+django-crispy-forms = "*"
+django-phonenumber-field = "*"
+phonenumbers = "*"
+django-optimized-image = "*"
+django-htmlmin = "*"
+django-cleanup = "*"
+
+[requires]
+python_version = "*"

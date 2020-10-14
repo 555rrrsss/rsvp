@@ -1,0 +1,47 @@
+{% load socialaccount %}
+{% load static %}
+
+<div class="row mb-4">
+    <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12">
+        <div class="form-group">
+            <a class="btn btn-primary btn-lg btn-block" href="{% provider_login_url 'facebook' %}">
+                <i class="fab fa-facebook-f mr-3"></i> Facebook
+            </a>
+        </div>
+    </div>
+    <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12">
+        <div class="form-group">
+            <a class="btn btn-primary btn-lg btn-block" href="{% provider_login_url 'instagram' %}">
+                <i class="fab fa-instagram mr-3"></i> Instagram
+            </a>
+        </div>
+    </div>
+    <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12">
+        <div class="form-group">
+            <a class="btn btn-primary btn-lg btn-block" href="{% provider_login_url 'twitter' %}">
+                <i class="fab fa-twitter mr-3"></i> Twitter
+            </a>
+        </div>
+    </div>
+    <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12">
+        <div class="form-group">
+            <a class="btn btn-primary btn-lg btn-block" href="{% provider_login_url 'google' %}">
+                <i class="fab fa-google mr-3"></i> Google
+            </a>
+        </div>
+    </div>
+    <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12">
+        <div class="form-group">
+            <a class="btn btn-primary btn-lg btn-block" href="{% provider_login_url 'microsoft' %}">
+                <i class="fab fa-microsoft mr-3"></i> Microsoft
+            </a>
+        </div>
+    </div>
+    <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12">
+        <div class="form-group">
+            <a class="btn btn-primary btn-lg btn-block" href="{% provider_login_url 'amazon' %}">
+                <i class="fab fa-amazon mr-3"></i> Amazon
+            </a>
+        </div>
+    </div>
+</div>

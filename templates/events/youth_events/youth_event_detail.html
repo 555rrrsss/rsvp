@@ -1,0 +1,326 @@
+{% extends 'events/root.html' %} {% block title %}{{ event.title }}{% endblock %} {% block content %}
+{% load static %}
+
+{# Breadcrumbs #}
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+      <nav aria-label="breadcrumb">
+        <hr>
+        <ol class="breadcrumb bg-white p-0">
+          <li class="breadcrumb-item"><a href="{% url 'index' %}">Home</a></li>
+          
+          <li class="breadcrumb-item"><a href="{% url 'youth_events' %}">Youth Events</a></li>
+          <li class="breadcrumb-item active" aria-current="page">{{ event.title }}</li>
+        </ol>
+        <hr>
+      </nav>
+    </div>
+  </div>
+</div>
+
+{# Banner #}
+<div class="container-fluid">
+  <div class="row mt-4">
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+      <h2 class="display-1">{{ event.title }}</h2>
+    </div>
+  </div>
+</div>
+
+{# Image #}
+{% if event.image %}
+<div class="container-fluid">
+  <div class="row mt-4">
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+      <img src="{% static 'global/images/placeholders/image-placeholder.jpg' %}" data-src="{{ event.image.url }}"
+        loading="lazy" alt="{{ event.image.name }}" class="lazy img" width="100%">
+    </div>
+  </div>
+</div>
+{% endif %}
+
+{# Divider #}
+<div class="container-fluid">
+  <div class="row my-5">
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+      <hr>
+    </div>
+  </div>
+</div>
+
+{# Event Info #}
+<div class="container-fluid">
+  <div class="row mt-4">
+    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+      <h4 class="font-weight-bold">Event Information:</h4>
+    </div>
+  </div>
+  <div class="row mt-4">
+    <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12">
+      <div class="form-group">
+        <ul class="list-group">
+          <li class="list-group-item bg-light">Status:</li>
+          {% if event.status == 'Open' %}
+          <li class="list-group-item text-success">{{ event.status }}</li>
+          {% else %}
+          <li class="list-group-item text-danger">{{ event.status }}</li>
+          {% endif %}
+        </ul>
+      </div>
+    </div>
+    <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12">
+      <div class="form-group">
+        <ul class="list-group">
+          <li class="list-group-item bg-light">Booking Deadline:</li>
+          <li class="list-group-item">{{ event.booking_deadline }}</li>
+        </ul>
+      </div>
+    </div>
+    {% if event.available_slots %}
+    <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12">
+      <div class="form-group">
+        <ul class="list-group">
+          <li class="list-group-item bg-light">Available Slots:</li>
+          <li class="list-group-item">{{ event.available_slots }}</li>
+        </ul>
+      </div>
+    </div>
+    {% endif %}
+    <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12">
+      <div class="form-group">
+        <ul class="list-group">
+          <li class="list-group-item bg-light">Event Start Date:</li>
+          <li class="list-group-item">{{ event.start_date }}</li>
+        </ul>
+      </div>
+    </div>
+    {% if event.end_date %}
+    <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12">
+      <div class="form-group">
+        <ul class="list-group">
+          <li class="list-group-item bg-light">Event End Date:</li>
+          <li class="list-group-item">{{ event.end_date }}</li>
+        </ul>
+      </div>
+    </div>
+    {% endif %}
+    <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12">
+      <div class="form-group">
+        <ul class="list-group">
+          <li class="list-group-item bg-light">Age Group:</li>
+          <li class="list-group-item">{{ event.age_group }}</li>
+        </ul>
+      </div>
+    </div>
+    <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12">
+      <div class="form-group">
+        <ul class="list-group">
+          <li class="list-group-item bg-light">Fee:</li>
+          <li class="list-group-item">€ {{ event.fee }}</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+{# Divider #}
+<div class="container-fluid">
+  <div class="row my-5">
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+      <hr>
+    </div>
+  </div>
+</div>
+
+{# Description #}
+{% if event.description %}
+<div class="container-fluid">
+  <div class="row mt-4">
+    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+      <h4 class="font-weight-bold">Description:</h4>
+    </div>
+  </div>
+  <div class="row mt-4">
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+      <p>{{ event.description }}</p>
+    </div>
+  </div>
+</div>
+{% endif %}
+
+{# Divider #}
+{% if event.generaleventagenda_set.all %}
+<div class="container-fluid">
+  <div class="row my-5">
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+      <hr>
+    </div>
+  </div>
+</div>
+{% endif %}
+
+{# Agenda #}
+{% if event.generaleventagenda_set.all %}
+<div class="container-fluid">
+  <div class="row mt-4">
+    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+      <h4 class="font-weight-bold">Agenda:</h4>
+    </div>
+  </div>
+  <div class="row mt-4">
+    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+      <p>Please keep in mind, Agenda is subject to change.</p>
+    </div>
+  </div>
+  <div class="row mt-4">
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+      <div class="table-responsive">
+        <table class="table table-hover">
+          <thead class="thead-light">
+            <tr>
+              <th scope="col" colspan="4">Lineup</th>
+              <th scope="col" colspan="4">Date</th>
+              <th scope="col" colspan="4">Start Time</th>
+              <th scope="col" colspan="4">End Time</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for event in event.generaleventagenda_set.all %}
+            <tr>
+              <td colspan="4">{{ event.lineup }}</td>
+              <td colspan="4">{{ event.date }}</td>
+              <td colspan="4">{{ event.start_time }}</td>
+              <td colspan="4">{{ event.end_time }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+{% endif %}
+
+{# Divider #}
+{% if event.important_note %}
+<div class="container-fluid">
+  <div class="row my-5">
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+      <hr>
+    </div>
+  </div>
+</div>
+{% endif %}
+
+{# Important Note #}
+{% if event.important_note %}
+<div class="container-fluid">
+  <div class="row mt-4">
+    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+      <h4 class="font-weight-bold">Important Note:</h4>
+    </div>
+  </div>
+  <div class="row mt-4">
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+      <p>{{ event.important_note }}</p>
+    </div>
+  </div>
+</div>
+{% endif %}
+
+{# Divider #}
+<div class="container-fluid">
+  <div class="row my-5">
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+      <hr>
+    </div>
+  </div>
+</div>
+
+{# Form #}
+<div class="container-fluid">
+  <div class="row mt-4">
+    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+      <h4 class="font-weight-bold">Booking:</h4>
+    </div>
+  </div>
+  <div class="row mt-4">
+    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+      <p>Please note, we do not process payments online. All payments are done off-line only to avoid unnecessary
+        charges and confusion.</p>
+    </div>
+  </div>
+  <div class="row mt-2">
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+      {% if event.status == 'Open' %}
+      <form method="post" oninput="totalprice.value=parseInt(id_bookings.value*{{ event.fee }})">
+
+        {% csrf_token %}
+        {% load crispy_forms_tags %}
+
+        <div class="form-row my-2">
+          <div class="form-group col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+            {{ form.full_name|as_crispy_field }}
+          </div>
+        </div>
+        <div class="form-row my-2">
+          <div class="form-group col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+            {{ form.email|as_crispy_field }}
+          </div>
+          <div class="form-group col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+            {{ form.phone_number|as_crispy_field }}
+          </div>
+        </div>
+        <div class="form-row my-2">
+          <div class="form-group col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+            {{ form.bookings|as_crispy_field }}
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+            <div class="form-group">
+              <label for="totalprice">Total Price:</label>
+              <div class="input-group">
+                <span class="input-group-prepend">
+                  <span class="input-group-text">€</span>
+                </span>
+                <output name="totalprice" for="id_bookings" class="form-control"></output>
+                <span class="input-group-append">
+                  <span class="input-group-text">.00</span>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row mt-5">
+          <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12">
+            <div class="form-group">
+              <button type="reset" class="btn btn-lg btn-block btn-danger">Clear</button>
+            </div>
+          </div>
+          <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12">
+            <div class="form-group">
+              <button type="submit" class="btn btn-lg btn-block btn-primary">Submit</button>
+            </div>
+          </div>
+        </div>
+
+      </form>
+      {% else %}
+      <div class="card bg-info text-dark font-weight-bold">
+        <div class="card-body py-5">
+          <p class="card-text">
+            <i class="fal fa-exclamation-triangle font-weight-bold  mr-2"></i>
+            Bookings for this event are now Closed.
+          </p>
+        </div>
+      </div>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+{% endblock %}

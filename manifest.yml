@@ -1,0 +1,6 @@
+applications:
+  - name: stmaryandstdemiana
+    memory: 500M
+    disk_quota: 500M
+    route: .ie
+    command: python manage.py collectstatic --noinput && gunicorn delivery_assurance_portal.wsgi:application

@@ -1,0 +1,135 @@
+/*! `Bootstrap 4` Bootstrap 4 theme */
+
+// Colors
+$gray-500: #adb5bd;
+
+$blue: #007bff;
+$indigo: #6610f2;
+$red: #e60100;
+$orange: #ffa524;
+$green: #28a745;
+$teal: #20c997;
+$cyan: #3db7cc;
+$gray-light: #f5f5f5;
+$gray-dark: #464646;
+$white: #ffffff;
+$black: #333333;
+
+
+// Theme
+$primary: $black;
+$secondary: $blue;
+$success: $green;
+$danger: $red;
+$info: $orange;
+$warning: $indigo;
+$light: $gray-light;
+$dark: $gray-dark;
+
+
+// Border
+$enable-rounded: true;
+$border-radius: 0em;
+$border-radius-custom: 50em;
+$border-color: $gray-light;
+
+
+// Links
+$link-color: $primary;
+$link-decoration: none;
+$link-hover-color: darken($link-color, 15%);
+$link-hover-decoration: underline;
+
+
+// Forms
+$input-bg: $gray-light;
+$input-placeholder-color: $gray-500;
+$input-border-radius: $border-radius-custom;
+$input-border-color: $gray-light;
+$input-line-height: 1.5;
+$input-padding-x: 2rem;
+$custom-file-border-radius: $input-border-radius;
+
+
+// Buttons
+$btn-border-radius: $border-radius-custom;
+$btn-border-radius-lg: $border-radius-custom;
+$btn-border-radius-sm: $border-radius-custom;
+
+
+// Badges
+$badge-padding-y: .8em;
+$badge-pill-padding-x: 1.5em;
+$badge-pill-border-radius: $border-radius-custom;
+
+
+// Pagination
+$pagination-color: $primary;
+$pagination-hover-color: $dark;
+
+
+// Progress Bar
+$progress-bar-bg: $secondary;
+
+
+// Breadcrumb
+$breadcrumb-border-radius: $border-radius-custom;
+$breadcrumb-padding-x: 2rem;
+$breadcrumb-divider: quote("/");
+
+
+//Typography
+$enable-responsive-font-sizes: true;
+$font-weight: 700;
+$font-weight-normal: $font-weight;
+$font-weight-bold: 900;
+$display1-weight: $font-weight;
+$display2-weight: $font-weight;
+$display3-weight: $font-weight;
+$display4-weight: $font-weight;
+
+
+@import "node_modules/bootstrap/scss/bootstrap";
+
+
+// Add SASS theme customizations here..
+
+
+/*! Custom Card Image */
+.feed.card-img-top {
+    width: 100%;
+    height: 30vh;
+    object-fit: cover;
+}
+
+// Inner wrapper
+.inner-wrapper {
+    max-width: 95em;
+    margin: auto;
+    padding-right: 1em;
+    padding-left: 1em;
+}
+
+// No media query necessary for xs breakpoint as it's effectively `@media (min-width: 0) { ... }`
+@include media-breakpoint-up(sm) {
+    .inner-wrapper {
+        padding-right: 1em;
+        padding-left: 1em;
+    }
+}
+
+@include media-breakpoint-up(md) {
+    .inner-wrapper {
+        padding-right: 2em;
+        padding-left: 2em;
+    }
+}
+
+@include media-breakpoint-up(lg) {
+    .inner-wrapper {
+        padding-right: 3em;
+        padding-left: 3em;
+    }
+}
+
+@include media-breakpoint-up(xl) {}

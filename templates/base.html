@@ -1,0 +1,138 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  {# PWA Manifest #}
+  <link rel="manifest" href="{% static 'manifest.json' %}">
+
+  {# Yall Lazyload #}
+  <script src="{% static 'libraries/yall/js/yall.min.js' %}"></script>
+  <script src="{% static 'libraries/yall/js/lazyload.js' %}"></script>
+
+  {# Bootstrap CSS #}
+  <link rel="stylesheet" type="text/css" href="{% static 'libraries/bootstrap/bootstrap-custom.css' %}">
+
+  {# Fontawesome CSS CDN #}
+  <link rel="stylesheet" href="{% static 'libraries/font-awesome/css/all.min.css' %}">
+
+  {# Custom CSS #}
+  <link rel="stylesheet" type="text/css" href="{% static 'global/css/stylesheet.css' %}">
+
+  {# Page title #}
+  <title>{% block title %} {% endblock %} | Events app</title>
+
+</head>
+
+<body class="d-flex flex-column min-vh-100">
+
+  {# Wrapper #}
+  <div class="wrapper flex-grow-1">
+
+    {# Navbar #}
+    <nav class="navbar navbar-light bg-white">
+      <div class="d-flex justify-content-start">
+        <div class="d-none d-lg-block">
+          <a href="{% url 'index' %}" alt="Home"><i class="fal fa-home fa-2x"></i></a>
+        </div>
+        <div class="d-lg-none d-block">
+          {% if user.is_authenticated %}
+          <a href="{% url 'account_logout' %}" alt="Logout">
+            <i class="fal fa-sign-out-alt fa-2x mx-3"></i>
+          </a>
+          {% else %}
+          <a href="{% url 'account_login' %}" alt="Login">
+            <i class="fal fa-sign-in-alt fa-2x mx-3"></i>
+          </a>
+          {% endif %}
+        </div>
+      </div>
+      <div class="d-flex justify-content-center d-lg-none d-block">
+        <a href="{% url 'index' %}" alt="Home"><i class="fal fa-home fa-2x"></i></a>
+      </div>
+      <div class="d-flex justify-content-end">
+        {% if user.is_authenticated %}
+        <a class="mt-2 ml-2 mr-4 d-none d-lg-block" href="{% url 'account_logout' %}" alt="Logout">
+          <i class="fal fa-sign-out-alt fa-2x mx-2"></i>
+        </a>
+        {% else %}
+        <div class="mt-2 ml-2 mr-4 d-none d-lg-block"><a href="{% url 'account_login' %}" alt="Login"><i
+              class="fal fa-sign-in-alt fa-2x mx-3"></i></a></div>
+        {% endif %}
+        <!-- <div class="my-2 ml-2 mr-4" onclick="openNav()">
+          <i class="fal fa-bars fa-2x"></i>
+        </div> -->
+      </div>
+    </nav>
+
+    {# Content #}
+    <div class="inner-wrapper mb-5">
+      {% block content %} {% endblock %}
+    </div>
+
+  </div>
+
+  {# Footer #}
+  <footer class="footer border-top bg-light mt-5 py-5" id="footer">
+
+    {# Desktop Footer #}
+    <div class="d-none d-xl-block d-lg-block text-center">
+      <div class="container">
+        <div class="row mt-4">
+          <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+            <a href="#">
+              <i class="fab fa-facebook-f mr-3" alt="Facebook profile"></i>
+            </a> |
+            <a href="" alt="Instagram profile">
+              <i class="fab fa-instagram mx-3" alt="Instagram profile"></i>
+            </a> |
+            <a href="" alt="Twitter profile">
+              <i class="fab fa-twitter mx-3" alt="Twitter profile"></i>
+            </a> |
+            <a href="" alt="Youtube channel">
+              <i class="fab fa-youtube mx-3"></i>
+            </a> |
+            <a href="" alt="Contact Page">
+              <i class="fas fa-envelope mx-3"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  {# JS Scripts #}
+
+  {# Bootstrap Scripts #}
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
+  </script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
+  </script>
+
+  {# Side Nav #}
+  <link rel="stylesheet" type="text/css" href="{% static 'libraries-custom/side-nav/css/stylesheet.css' %}">
+  <script type="text/javascript" src="{% static 'libraries-custom/side-nav/js/side-nav.js' %}"></script>
+
+  {# Smooth Scroll #}
+  {% block smooth-scroll %}{% endblock %}
+
+  {# Plyr #}
+  {% block plyr %}{% endblock %}
+
+  {# Fancybox #}
+  {% block fancybox %}{% endblock %}
+
+  {# Disqus #}
+  {% block disqus %}{% endblock %}
+
+  {# End JS Scripts #}
+
+</body>
+
+</html>

@@ -1,0 +1,44 @@
+{% if items.has_other_pages %}
+<div class="row mt-4">
+  <div class="mx-auto">
+    <nav aria-label="Page navigation">
+      <ul class="pagination pagination-lg">
+        {% if items.has_previous %}
+        <li class="page-item"><a class="page-link"
+            href="?page=1{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}"><i
+              class="fal fa-step-backward"></i></a></li>
+        <li class="page-item"><a class="page-link"
+            href="?page={{ items.previous_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}"><i
+              class="fal fa-chevron-left"></i></a></li>
+        {% else %}
+        <li class="page-item disabled"><a class="page-link" href="#"><span><i
+                class="fal fa-step-backward"></i></span></a></li>
+        <li class="page-item disabled"><a class="page-link" href="#"><span><i
+                class="fal fa-chevron-left"></i></span></a></li>
+        {% endif %}
+        {% for i in items.paginator.page_range %}
+        {% if items.number == i %}
+        <li class="page-item active"><a class="page-link" href="#">{{ i }} <span class="sr-only">(current)</span></a>
+        </li>
+        {% elif i > items.number|add:'-3' and i < items.number|add:'3' %} <li class="page-item"><a class="page-link"
+            href="?page={{ i }}">{{ i }}</a></li>
+        {% endif %}
+        {% endfor %}
+        {% if items.has_next %}
+        <li class="page-item"><a class="page-link"
+            href="?page={{ items.next_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}"><i
+              class="fal fa-chevron-right"></i></a></li>
+        <li class="page-item"><a class="page-link"
+            href="?page={{ items.paginator.num_pages }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}"><i
+              class="fal fa-step-forward"></i></a></li>
+        {% else %}
+        <li class="page-item disabled"><a class="page-link" href="#"><span><i
+                class="fal fa-chevron-right"></i></span></a></li>
+        <li class="page-item disabled"><a class="page-link" href="#"><span><i
+                class="fal fa-step-forward"></i></span></a></li>
+        {% endif %}
+      </ul>
+    </nav>
+  </div>
+</div>
+{% endif %}
