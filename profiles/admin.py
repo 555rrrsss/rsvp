@@ -17,6 +17,9 @@ class UserProfileInline(admin.StackedInline):
 # Define a new User admin
 class UserAdmin(BaseUserAdmin):
     inlines = (UserProfileInline, )
+    # fieldsets = [
+    #     ('Personal info', {'fields': ['postal_code', ]}),
+    # ]
 
 
 # Re-register UserAdmin

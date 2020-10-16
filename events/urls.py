@@ -4,6 +4,9 @@ from . import views
 
 urlpatterns = [
     path('', views.index, name='index'),
+    # Events User Bookings
+    path('events/bookings', views.events_user_bookings,
+         name='events_user_bookings'),
     # General Events
     path('events/general-events', views.general_events, name='general_events'),
     path('events/general-events/<slug>/booking',

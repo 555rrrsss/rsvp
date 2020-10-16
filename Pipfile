@@ -14,6 +14,8 @@ phonenumbers = "*"
 django-optimized-image = "*"
 django-htmlmin = "*"
 django-cleanup = "*"
+pillow = "*"
+django-countries = "*"
 
 [requires]
 python_version = "*"

@@ -12,6 +12,13 @@ def index(request):
     return render(request, 'events/events.html',)
 
 
+# EVENTS USER BOOKINGS -----------------------------------------------------------------
+
+# User Bookings
+def events_user_bookings(request):
+    return render(request, 'events/user_bookings/bookings_list.html',)
+
+
 # GENERAL EVENTS ----------------------------------------------------------------------
 
 # General Events
@@ -45,6 +52,7 @@ def general_events_booking(request, slug):
         if form.is_valid():
             form = form.save(commit=False)
             form.event = event
+            form.user = request.user
             form.save()
             return redirect('general_events_booking_complete', slug=event.slug)
     else:
@@ -96,6 +104,7 @@ def youth_events_booking(request, slug):
         if form.is_valid():
             form = form.save(commit=False)
             form.event = event
+            form.user = request.user
             form.save()
             return redirect('youth_events_booking_complete', slug=event.slug)
     else:

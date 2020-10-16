@@ -13,8 +13,7 @@
   <div class="row">
     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
       <nav aria-label="breadcrumb">
-        <hr>
-        <ol class="breadcrumb bg-white p-0">
+        <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="{% url 'index' %}">Home</a></li>
           <li class="breadcrumb-item active" aria-current="page">Login</li>
         </ol>
@@ -24,11 +23,29 @@
   </div>
 </div>
 
+<div class="container-fluid">
+  <div class="row mt-4">
+    <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 col-12">
+      <p>For development, please login using /admin</p>
+      <a href="{% url 'admin:index' %}" class="btn btn-block btn-primary">Link to admin panel</a>
+    </div>
+  </div>
+</div>
+
+{# Divider #}
+<div class="container-fluid">
+  <div class="row my-5">
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+      <hr>
+    </div>
+  </div>
+</div>
+
 {# Banner #}
 <div class="container-fluid">
   <div class="row mt-4">
     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-      <h2 class="display-1">Login</h2>
+      <h2 class="display-4">Login</h2>
     </div>
   </div>
 </div>

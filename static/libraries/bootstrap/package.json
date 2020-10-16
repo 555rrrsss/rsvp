@@ -1,12 +1,9 @@
 {
-    "name": "St.Mary & St.Demiana Coptic Rsvp",
+    "name": "Rsvp",
     "version": "1.0.0",
-    "description": "boostrap themeing for St.Mary & St.Demiana Coptic Rsvp",
+    "description": "boostrap themeing for Rsvp",
     "main": "index.js",
-    "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1"
-    },
-    "author": "St.Mary & St.Demiana Coptic Rsvps",
+    "author": "Rsvps",
     "license": "ISC",
     "dependencies": {
         "bootstrap": "^4.5.0"

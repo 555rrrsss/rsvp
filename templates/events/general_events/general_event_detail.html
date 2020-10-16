@@ -6,10 +6,8 @@
   <div class="row">
     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
       <nav aria-label="breadcrumb">
-        <hr>
-        <ol class="breadcrumb bg-white p-0">
+        <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="{% url 'index' %}">Home</a></li>
-          
           <li class="breadcrumb-item"><a href="{% url 'general_events' %}">General Events</a></li>
           <li class="breadcrumb-item active" aria-current="page">{{ event.title }}</li>
         </ol>
@@ -23,7 +21,7 @@
 <div class="container-fluid">
   <div class="row mt-4">
     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-      <h2 class="display-1">{{ event.title }}</h2>
+      <h2 class="display-4">{{ event.title }}</h2>
     </div>
   </div>
 </div>

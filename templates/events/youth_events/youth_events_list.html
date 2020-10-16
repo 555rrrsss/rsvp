@@ -6,10 +6,8 @@
   <div class="row">
     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
       <nav aria-label="breadcrumb">
-        <hr>
-        <ol class="breadcrumb bg-white p-0">
+        <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="{% url 'index' %}">Home</a></li>
-          
           <li class="breadcrumb-item active" aria-current="page">Youth Events</li>
         </ol>
         <hr>
@@ -22,7 +20,7 @@
 <div class="container-fluid">
   <div class="row mt-4">
     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-      <h2 class="display-1">Youth Events</h2>
+      <h2 class="display-4">Youth Events</h2>
     </div>
   </div>
 </div>
@@ -34,7 +32,7 @@
       <div class="row">
         <div class="col-md-12">
           <label for="query">
-            <h4>Search</h4>
+            <h5>Search</h5>
           </label>
         </div>
       </div>
@@ -43,8 +41,8 @@
           <form method="GET" action="">
             <div class="input-group input-group-lg mb-3">
               <input type="text" name="query" value="{{ request.GET.query }}" class="form-control"
-                placeholder="Search by title, date, author or content"
-                aria-label="Search by title, date, author or content" aria-describedby="button-search" />
+                placeholder="Search by title or status"
+                aria-label="Search by title or status" aria-describedby="button-search" />
               <div class="input-group-append">
                 <button class="btn btn-primary" type="submit" value="Search" id="button-search"><i
                     class="fal fa-search"></i></button>
@@ -56,6 +54,9 @@
     </div>
   </div>
 </div>
+
+{# Event Navbar #}
+{% include "events/event-navbar.html" %}
 
 {# Event List #}
 <div class="container-fluid">

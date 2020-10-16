@@ -13,7 +13,7 @@ $cyan: #3db7cc;
 $gray-light: #f5f5f5;
 $gray-dark: #464646;
 $white: #ffffff;
-$black: #333333;
+$black: #121212;
 
 
 // Theme
@@ -73,9 +73,11 @@ $progress-bar-bg: $secondary;
 
 
 // Breadcrumb
-$breadcrumb-border-radius: $border-radius-custom;
-$breadcrumb-padding-x: 2rem;
+$breadcrumb-font-size: 0.9rem;
+$breadcrumb-padding-x: 0rem;
+$breadcrumb-padding-y: 0rem;
 $breadcrumb-divider: quote("/");
+$breadcrumb-bg: none;
 
 
 //Typography

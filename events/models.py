@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 from django.utils import timezone
 from django.db.models.signals import pre_save
 from rsvp.utils import unique_slug_generator
@@ -86,6 +87,7 @@ class BaseEvent(models.Model):
 
 # Base Event Form Model
 class BaseEventBooking(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     full_name = models.CharField(
         max_length=50, help_text="Your full name.")
     email = models.EmailField(max_length=50, help_text="Main e-mail address.")
