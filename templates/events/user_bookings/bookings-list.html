@@ -1,0 +1,145 @@
+{% extends 'events/root.html' %} {% block title %}Event Bookings{% endblock %} {% block content %}
+{% load static %}
+
+{# Breadcrumbs #}
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="{% url 'index' %}">Home</a></li>
+          <li class="breadcrumb-item active" aria-current="page">Bookings</li>
+        </ol>
+        <hr>
+      </nav>
+    </div>
+  </div>
+</div>
+
+{# Banner #}
+<div class="container-fluid">
+  <div class="row my-5">
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+      <h2 class="display-4">Bookings</h2>
+    </div>
+  </div>
+</div>
+
+{# Filter Bookings Nav #}
+<div class="container-fluid">
+  <div class="row mt-4">
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+      <nav class="nav nav-pills nav-justified">
+        <a class="nav-link btn btn-outline-primary active" id="pills-general-event-tab" data-toggle="pill"
+          href="#pills-general-event" role="tab" aria-controls="pills-general-event" aria-selected="true">General
+          Events</a>
+        <a class="nav-link btn btn-outline-primary mx-3" id="pills-youth-event-tab" data-toggle="pill"
+          href="#pills-youth-event" role="tab" aria-controls="pills-youth-event" aria-selected="false">Youth Events</a>
+      </nav>
+    </div>
+  </div>
+</div>
+
+{# Divider #}
+<div class="container-fluid">
+  <div class="row my-5">
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+      <hr>
+    </div>
+  </div>
+</div>
+
+{# Current Bookings #}
+<div class="tab-content" id="pills-tabContent">
+
+  <div class="tab-pane show active" id="pills-general-event" role="tabpanel" aria-labelledby="pills-general-event-tab">
+    <div class="container-fluid">
+      <div class="row mt-4">
+        {% for general_event_booking in general_event_bookings %}
+        {% for general_event in general_events %}
+        <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12 mb-4">
+          <a href="{% url 'events_user_booking_info' slug=general_event.slug %}">
+            <div class="card bg-light border-0 h-100">
+              {% if general_event.image %}
+              <img src="{% static 'global/images/placeholders/image-placeholder.jpg' %}"
+                data-src="{{ general_event.image.url }}" loading="lazy" alt="{{ general_event.image.name }}"
+                class="lazy img-fluid card-img-top feed" width="100%">
+              {% endif %}
+              <div class="card-body">
+                <div class="card-title">
+                  {{ general_event.title }}
+                </div>
+              </div>
+              <div class="card-footer text-dark bg-light border-0">
+                <div class="float-left">
+                  {{ general_event.status }}
+                </div>
+                <div class="float-right"><i class="fal fa-arrow-right fa-lg"></i></div>
+              </div>
+            </div>
+          </a>
+        </div>
+        {% endfor %}
+        {% empty %}
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+          <div class="card bg-info text-dark font-weight-bold">
+            <div class="card-body py-5">
+              <p class="card-text">
+                <i class="fal fa-exclamation-triangle font-weight-bold  mr-2"></i>
+                Sorry, we couldn't find anything. Try checking back later.
+              </p>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+
+  <div class="tab-pane fade" id="pills-youth-event" role="tabpanel" aria-labelledby="pills-youth-event-tab">
+    <div class="container-fluid">
+      <div class="row mt-4">
+        {% for youth_event_booking in youth_event_bookings %}
+        {% for youth_event in youth_events %}
+        <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12 mb-4">
+          <a href="{% url 'events_user_booking_info' slug=youth_event.slug %}">
+            <div class="card bg-light border-0 h-100">
+              {% if youth_event.image %}
+              <img src="{% static 'global/images/placeholders/image-placeholder.jpg' %}"
+                data-src="{{ youth_event.image.url }}" loading="lazy" alt="{{ youth_event.image.name }}"
+                class="lazy img-fluid card-img-top feed" width="100%">
+              {% endif %}
+              <div class="card-body">
+                <div class="card-title">
+                  {{ youth_event.title }}
+                </div>
+              </div>
+              <div class="card-footer text-dark bg-light border-0">
+                <div class="float-left">
+                  {{ youth_event.status }}
+                </div>
+                <div class="float-right"><i class="fal fa-arrow-right fa-lg"></i></div>
+              </div>
+            </div>
+          </a>
+        </div>
+        {% endfor %}
+        {% empty %}
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+          <div class="card bg-info text-dark font-weight-bold">
+            <div class="card-body py-5">
+              <p class="card-text">
+                <i class="fal fa-exclamation-triangle font-weight-bold  mr-2"></i>
+                Sorry, we couldn't find anything. Try checking back later.
+              </p>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+
+</div>
+
+{% endblock %}

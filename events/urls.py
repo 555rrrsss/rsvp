@@ -7,6 +7,8 @@ urlpatterns = [
     # Events User Bookings
     path('events/bookings', views.events_user_bookings,
          name='events_user_bookings'),
+    path('events/bookings/<slug>', views.events_user_booking_info,
+         name='events_user_booking_info'),
     # General Events
     path('events/general-events', views.general_events, name='general_events'),
     path('events/general-events/<slug>/booking',

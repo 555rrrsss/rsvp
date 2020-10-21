@@ -16,7 +16,23 @@ def index(request):
 
 # User Bookings
 def events_user_bookings(request):
-    return render(request, 'events/user_bookings/bookings_list.html',)
+    general_events = GeneralEvent.objects.all()
+    general_event_bookings = GeneralEventBooking.objects.filter(
+        user=request.user)
+    youth_events = YouthEvent.objects.all()
+    youth_event_bookings = YouthEventBooking.objects.filter(user=request.user)
+    args = {'general_events': general_events, 'general_event_bookings': general_event_bookings,
+            'youth_events': youth_events, 'youth_event_bookings': youth_event_bookings}
+    return render(request, 'events/user_bookings/bookings-list.html', args)
+
+
+def events_user_booking_info(request, slug):
+    event = get_object_or_404(GeneralEvent, slug=slug)
+    general_event_booking = GeneralEventBooking.objects.filter(
+        user=request.user)
+    args = {'event': event,
+            'general_event_booking': general_event_booking}
+    return render(request, 'events/user_bookings/booking-info.html', args)
 
 
 # GENERAL EVENTS ----------------------------------------------------------------------
