@@ -28,7 +28,7 @@ def events_user_bookings(request):
 # User General Event Bookings
 def events_user_booking_general_event_info(request, slug):
     event = get_object_or_404(GeneralEvent, slug=slug)
-    general_event_booking = GeneralEventBooking.objects.filter(user=request.user)
+    general_event_booking = GeneralEventBooking.objects.filter(event=event, user=request.user)
     if request.method== "POST":
         general_event_booking.delete()
         return redirect('events_user_bookings')
@@ -40,8 +40,7 @@ def events_user_booking_general_event_info(request, slug):
 # User Youth Event Bookings
 def events_user_booking_youth_event_info(request, slug):
     event = get_object_or_404(YouthEvent, slug=slug)
-    youth_event_booking = YouthEventBooking.objects.filter(
-        user=request.user)
+    youth_event_booking = YouthEventBooking.objects.filter(event=event, user=request.user)
     if request.method== "POST":
         youth_event_booking.delete()
         return redirect('events_user_bookings')
