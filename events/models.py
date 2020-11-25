@@ -88,8 +88,10 @@ class BaseEvent(models.Model):
 # Base Event Form Model
 class BaseEventBooking(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    full_name = models.CharField(
-        max_length=50, help_text="Your full name.")
+    first_name = models.CharField(
+        max_length=50, help_text="Your first name.")
+    last_name = models.CharField(
+        max_length=50, help_text="Your last name.")
     email = models.EmailField(max_length=50, help_text="Main e-mail address.")
     phone_number = PhoneNumberField(
         max_length=15, help_text="Phone number, mobile or landline.")
@@ -97,7 +99,7 @@ class BaseEventBooking(models.Model):
         default=timezone.now, help_text="Date of booking.")
 
     def __str__(self):
-        return self.full_name
+        return self.first_name + self.last_name
 
     class Meta:
         abstract = True

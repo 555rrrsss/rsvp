@@ -9,9 +9,8 @@
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{% url 'index' %}">Home</a></li>
                     <li class="breadcrumb-item"><a href="{% url 'events' %}">Events</a></li>
-                    <li class="breadcrumb-item"><a href="{% url 'youth_events' %}">Youth Events</a></li>
-                    <li class="breadcrumb-item"><a href="">{{ event_complete.title }}</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Booking Complete</li>
+                    <li class="breadcrumb-item"><a href="{% url 'events_user_bookings' %}">Bookings</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">{{ event.title }}</li>
                 </ol>
                 <hr>
             </nav>
@@ -23,12 +22,12 @@
 <div class="container-fluid">
     <div class="row my-5">
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-            <h2 class="display-4">Booking Complete</h2>
+            <h2 class="display-4">{{ event.title }}</h2>
         </div>
     </div>
 </div>
 
-{# Options #}
+{# Booking Options #}
 <div class="container-fluid">
     <div class="row my-5">
         <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12 col-12">
@@ -39,13 +38,44 @@
         </div>
         <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12 col-12">
             <div class="form-group">
-                <a href="{% url 'events_user_bookings' %}" class="btn btn-lg btn-block btn-outline-primary">Manage
-                    Bookings</a>
+                <a href="" class="btn btn-lg btn-block btn-outline-secondary">Modify</a>
             </div>
         </div>
         <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12 col-12">
             <div class="form-group">
-                <a href="{% url 'events' %}" class="btn btn-lg btn-block btn-outline-primary">View More Events</a>
+                <button type="button" class="btn btn-lg btn-block btn-outline-danger" data-toggle="modal"
+                    data-target="#cancelBookingModel">Cancel</button>
+                {# Cancel Model #}
+                <div class="modal" id="cancelBookingModel" tabindex="-1" aria-labelledby="cancelBookingModelLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="cancelBookingModelLabel">Cancel Booking</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                Are you sure you want to Cancel this booking?
+                                <div class="font-weight-bold">This cannot be undone.</div>
+                            </div>
+                            <form action="{% url 'events_user_booking_youth_event_info' event.slug %}" method='POST'>
+                                <div class="modal-footer">
+                                    {% csrf_token %}
+                                    <div class="form-group">
+                                        <button type="button" class="btn btn-lg btn-block btn-primary px-4"
+                                            data-dismiss="modal">No</button>
+                                    </div>
+                                    <div class="form-group">
+                                        <button type='submit' type="button"
+                                            class="btn btn-lg btn-block btn-danger px-4">Yes</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -64,7 +94,6 @@
 <div class="container-fluid">
     <div class="row mt-4">
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-            <p>You're booking has been processed.</p>
             <p>Please note, all payments (if any) are done off-line to avoid unnecessary charges and confusion. Ensure
                 you pay in advance or on the day of the event.</p>
         </div>
@@ -92,7 +121,7 @@
             <div class="form-group">
                 <ul class="list-group">
                     <li class="list-group-item bg-light">Event Booked:</li>
-                    <li class="list-group-item">{{ event_complete.title }}</li>
+                    <li class="list-group-item">{{ event.title }}</li>
                 </ul>
             </div>
         </div>
@@ -100,7 +129,7 @@
             <div class="form-group">
                 <ul class="list-group">
                     <li class="list-group-item bg-light">Booking Date:</li>
-                    <li class="list-group-item">{{ event_complete.booking_date }}</li>
+                    <li class="list-group-item">{{ general_event_booking.booking_date }}</li>
                 </ul>
             </div>
         </div>
@@ -108,15 +137,23 @@
             <div class="form-group">
                 <ul class="list-group">
                     <li class="list-group-item bg-light">Total Owed:</li>
-                    <li class="list-group-item">{{ event_complete.total_price }}</li>
+                    <li class="list-group-item">{{ event.total_price }}</li>
                 </ul>
             </div>
         </div>
         <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12">
             <div class="form-group">
                 <ul class="list-group">
-                    <li class="list-group-item bg-light">Bookings:</li>
-                    <li class="list-group-item">€ {{ event_complete.bookings }}</li>
+                    <li class="list-group-item bg-light">Adult Bookings:</li>
+                    <li class="list-group-item">{{ event.adult_bookings }}</li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12">
+            <div class="form-group">
+                <ul class="list-group">
+                    <li class="list-group-item bg-light">Kides Bookings:</li>
+                    <li class="list-group-item">{{ event.children_bookings }}</li>
                 </ul>
             </div>
         </div>
@@ -144,16 +181,16 @@
             <div class="form-group">
                 <ul class="list-group">
                     <li class="list-group-item bg-light">Event Start Date:</li>
-                    <li class="list-group-item">{{ event_complete.start_date }}</li>
+                    <li class="list-group-item">{{ event.start_date }}</li>
                 </ul>
             </div>
         </div>
-        {% if event_complete.end_date %}
+        {% if event.end_date %}
         <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12">
             <div class="form-group">
                 <ul class="list-group">
                     <li class="list-group-item bg-light">Event End Date:</li>
-                    <li class="list-group-item">{{ event_complete.end_date }}</li>
+                    <li class="list-group-item">{{ event.end_date }}</li>
                 </ul>
             </div>
         </div>
@@ -161,8 +198,16 @@
         <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12">
             <div class="form-group">
                 <ul class="list-group">
-                    <li class="list-group-item bg-light">Fee:</li>
-                    <li class="list-group-item">€ {{ event_complete.fee }}</li>
+                    <li class="list-group-item bg-light">Adult Fee:</li>
+                    <li class="list-group-item">€ {{ event.adult_fee }}</li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12">
+            <div class="form-group">
+                <ul class="list-group">
+                    <li class="list-group-item bg-light">Kides Fee:</li>
+                    <li class="list-group-item">€ {{ event.kids_fee }}</li>
                 </ul>
             </div>
         </div>

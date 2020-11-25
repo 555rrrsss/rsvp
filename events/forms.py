@@ -14,7 +14,7 @@ class GeneralEventForm(forms.ModelForm):
 
     class Meta:
         model = GeneralEventBooking
-        fields = ('full_name', 'email', 'phone_number',
+        fields = ('first_name', 'last_name', 'email', 'phone_number',
                   'adult_bookings', 'children_bookings',)
 
 
@@ -28,4 +28,4 @@ class YouthEventForm(forms.ModelForm):
 
     class Meta:
         model = YouthEventBooking
-        fields = ('full_name', 'email', 'phone_number', 'bookings',)
+        fields = ('first_name', 'last_name', 'email', 'phone_number', 'bookings',)

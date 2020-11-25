@@ -8,7 +8,6 @@
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{% url 'index' %}">Home</a></li>
-                    <li class="breadcrumb-item"><a href="{% url 'events' %}">Events</a></li>
                     <li class="breadcrumb-item"><a href="{% url 'youth_events' %}">Youth Events</a></li>
                     <li class="breadcrumb-item"><a href="">{{ event_complete.title }}</a></li>
                     <li class="breadcrumb-item active" aria-current="page">Booking Complete</li>
@@ -21,16 +20,20 @@
 
 {# Banner #}
 <div class="container-fluid">
-    <div class="row my-5">
+    <div class="row mt-4">
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-            <h2 class="display-4">Booking Complete</h2>
+            <h2 class="display-4 w-100">Booking Complete</h2>
         </div>
     </div>
 </div>
 
-{# Options #}
 <div class="container-fluid">
     <div class="row my-5">
+        <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12 col-12">
+            <div class="form-group">
+                <a href="{% url 'index' %}" class="btn btn-lg btn-block btn-outline-primary">View More Events</a>
+            </div>
+        </div>
         <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12 col-12">
             <div class="form-group">
                 <button onclick="window.print()" class="btn btn-lg btn-block btn-outline-primary">Download
@@ -41,11 +44,6 @@
             <div class="form-group">
                 <a href="{% url 'events_user_bookings' %}" class="btn btn-lg btn-block btn-outline-primary">Manage
                     Bookings</a>
-            </div>
-        </div>
-        <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12 col-12">
-            <div class="form-group">
-                <a href="{% url 'events' %}" class="btn btn-lg btn-block btn-outline-primary">View More Events</a>
             </div>
         </div>
     </div>
@@ -60,13 +58,10 @@
     </div>
 </div>
 
-{# Payment info #}
 <div class="container-fluid">
     <div class="row mt-4">
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
             <p>You're booking has been processed.</p>
-            <p>Please note, all payments (if any) are done off-line to avoid unnecessary charges and confusion. Ensure
-                you pay in advance or on the day of the event.</p>
         </div>
     </div>
 </div>

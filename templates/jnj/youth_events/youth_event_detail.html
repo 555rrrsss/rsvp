@@ -8,8 +8,7 @@
       <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="{% url 'index' %}">Home</a></li>
-          <li class="breadcrumb-item"><a href="{% url 'events' %}">Events</a></li>
-          <li class="breadcrumb-item"><a href="{% url 'general_events' %}">General Events</a></li>
+          <li class="breadcrumb-item"><a href="{% url 'youth_events' %}">Youth Events</a></li>
           <li class="breadcrumb-item active" aria-current="page">{{ event.title }}</li>
         </ol>
         <hr>
@@ -20,7 +19,7 @@
 
 {# Banner #}
 <div class="container-fluid">
-  <div class="row my-5">
+  <div class="row mt-4">
     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
       <h2 class="display-4">{{ event.title }}</h2>
     </div>
@@ -107,16 +106,16 @@
     <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12">
       <div class="form-group">
         <ul class="list-group">
-          <li class="list-group-item bg-light">Adult Fee:</li>
-          <li class="list-group-item">€ {{ event.adult_fee }}</li>
+          <li class="list-group-item bg-light">Age Group:</li>
+          <li class="list-group-item">{{ event.age_group }}</li>
         </ul>
       </div>
     </div>
     <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12">
       <div class="form-group">
         <ul class="list-group">
-          <li class="list-group-item bg-light">Kides Fee:</li>
-          <li class="list-group-item">€ {{ event.kids_fee }}</li>
+          <li class="list-group-item bg-light">Fee:</li>
+          <li class="list-group-item">€ {{ event.fee }}</li>
         </ul>
       </div>
     </div>
@@ -189,8 +188,8 @@
             <tr>
               <td colspan="4">{{ event.lineup }}</td>
               <td colspan="4">{{ event.date }}</td>
-              <td colspan="4">{{ event.start_time|time:"H:i" }}</td>
-              <td colspan="4">{{ event.end_time|time:"H:i" }}</td>
+              <td colspan="4">{{ event.start_time }}</td>
+              <td colspan="4">{{ event.end_time }}</td>
             </tr>
             {% endfor %}
           </tbody>
@@ -245,7 +244,7 @@
     </div>
   </div>
   <div class="row mt-4">
-    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
       <p>Please note, we do not process payments online. All payments are done off-line only to avoid unnecessary
         charges and confusion.</p>
     </div>
@@ -253,18 +252,14 @@
   <div class="row mt-2">
     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
       {% if event.status == 'Open' %}
-      <form method="post"
-        oninput="totalprice.value=parseInt(id_adult_bookings.value*{{ event.adult_fee }})+parseInt(id_children_bookings.value*{{ event.kids_fee }})">
+      <form method="post" oninput="totalprice.value=parseInt(id_bookings.value*{{ event.fee }})">
 
         {% csrf_token %}
         {% load crispy_forms_tags %}
 
         <div class="form-row my-2">
           <div class="form-group col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
-            {{ form.first_name|as_crispy_field }}
-          </div>
-          <div class="form-group col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
-            {{ form.last_name|as_crispy_field }}
+            {{ form.full_name|as_crispy_field }}
           </div>
         </div>
         <div class="form-row my-2">
@@ -277,14 +272,11 @@
         </div>
         <div class="form-row my-2">
           <div class="form-group col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
-            {{ form.adult_bookings|as_crispy_field }}
-          </div>
-          <div class="form-group col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
-            {{ form.children_bookings|as_crispy_field }}
+            {{ form.bookings|as_crispy_field }}
           </div>
         </div>
 
-        <div class="row mt-2">
+        <div class="row">
           <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
             <div class="form-group">
               <label for="totalprice">Total Price:</label>
@@ -292,7 +284,7 @@
                 <span class="input-group-prepend">
                   <span class="input-group-text">€</span>
                 </span>
-                <output name="totalprice" for="id_adult_bookings id_children_bookings" class="form-control"></output>
+                <output name="totalprice" for="id_bookings" class="form-control"></output>
                 <span class="input-group-append">
                   <span class="input-group-text">.00</span>
                 </span>

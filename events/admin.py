@@ -4,7 +4,6 @@ from .models import *
 
 # Register your models here.
 
-
 # General Event Agenda Inline
 class GeneralEventAgendaInline(admin.TabularInline):
     model = GeneralEventAgenda
@@ -15,7 +14,7 @@ class GeneralEventAgendaInline(admin.TabularInline):
 # General Event Booking Inline
 class GeneralEventBookingInline(admin.TabularInline):
     model = GeneralEventBooking
-    list_display = ('full_name', 'email', 'phone_number',
+    list_display = ('first_name', 'last_name', 'email', 'phone_number',
                     'adult_bookings', 'children_bookings', 'booking_date')
 
 
@@ -44,7 +43,7 @@ class YouthEventAgendaInline(admin.TabularInline):
 # Youth Event Booking Inline
 class YouthEventBookingInline(admin.TabularInline):
     model = YouthEventBooking
-    list_display = ('full_name', 'email', 'phone_number', 'bookings')
+    list_display = ('first_name', 'last_name', 'email', 'phone_number', 'bookings')
 
 
 # Youth Event

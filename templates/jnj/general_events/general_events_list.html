@@ -1,4 +1,4 @@
-{% extends 'events/root.html' %} {% block title %}Youth Events{% endblock %} {% block content %}
+{% extends 'events/root.html' %} {% block title %}General Events{% endblock %} {% block content %}
 {% load static %}
 
 {# Breadcrumbs #}
@@ -8,8 +8,7 @@
       <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="{% url 'index' %}">Home</a></li>
-          <li class="breadcrumb-item"><a href="{% url 'events' %}">Events</a></li>
-          <li class="breadcrumb-item active" aria-current="page">Youth Events</li>
+          <li class="breadcrumb-item active" aria-current="page">General Events</li>
         </ol>
         <hr>
       </nav>
@@ -19,9 +18,9 @@
 
 {# Banner #}
 <div class="container-fluid">
-  <div class="row my-5">
+  <div class="row mt-4">
     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-      <h2 class="display-4">Youth Events</h2>
+      <h2 class="display-4">General Events</h2>
     </div>
   </div>
 </div>
@@ -64,7 +63,7 @@
   <div class="row mt-4">
     {% for event in events %}
     <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12 mb-4">
-      <a href="{% url 'youth_events_booking' slug=event.slug %}">
+      <a href="{% url 'general_events_booking' slug=event.slug %}">
         <div class="card bg-light border-0 h-100">
           {% if event.image %}
           <img src="{% static 'global/images/placeholders/image-placeholder.jpg' %}" data-src="{{ event.image.url }}"
