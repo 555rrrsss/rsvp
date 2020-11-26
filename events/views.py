@@ -16,9 +16,7 @@ def index(request):
 
 # User Bookings
 def events_user_bookings(request):
-    general_events = GeneralEvent.objects.all()
     general_event_bookings = GeneralEventBooking.objects.filter(user=request.user)
-    youth_events = YouthEvent.objects.all()
     youth_event_bookings = YouthEventBooking.objects.filter(user=request.user)
     args = {'general_events': general_events, 'general_event_bookings': general_event_bookings,
             'youth_events': youth_events, 'youth_event_bookings': youth_event_bookings,}
