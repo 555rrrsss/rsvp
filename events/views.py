@@ -103,13 +103,13 @@ def general_events_booking_complete(request, slug):
     return render(request, 'events/general_events/general_event_complete.html', args)
 
 
-# Modify General Events Booking
+# General Events Booking Modify
 def general_events_booking_modify(request, slug):
     event = GeneralEventBooking.objects.get(event__slug=slug)
-    form =  GeneralEventForm(instance=event)
     # form
+    form = GeneralEventForm(instance=event)
     if request.method == 'POST':
-        form = GeneralEventForm(request.POST, instance=event)
+        form = GeneralEventForm(instance=event)
         if form.is_valid():
             form = form.save(commit=False)
             form.event = event
