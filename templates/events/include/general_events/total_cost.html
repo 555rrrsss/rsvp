@@ -1,0 +1,12 @@
+{# General Events - Total Owed Calculation #}
+
+<script>
+    var adult_fee = "{{ event.adult_fee }}";
+    var adult_bookings = "{{ event_booking.adult_bookings }}";
+    var kids_fee = "{{ event.kids_fee }}";
+    var children_bookings = "{{ event_booking.children_bookings }}";
+    var total_adult_price = adult_fee * adult_bookings;
+    var total_kids_price = kids_fee * children_bookings;
+    var total_price = total_adult_price + total_kids_price;
+    document.getElementById("total_fee").innerHTML = "€ " + total_price;
+</script>

@@ -1,4 +1,4 @@
-{% extends 'events/root.html' %} {% block title %}Youth Events{% endblock %} {% block content %}
+{% extends 'events/root.html' %} {% block title %}General Events Bookings{% endblock %} {% block content %}
 {% load static %}
 
 {# Breadcrumbs #}
@@ -9,7 +9,8 @@
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="{% url 'index' %}">Home</a></li>
           <li class="breadcrumb-item"><a href="{% url 'events' %}">Events</a></li>
-          <li class="breadcrumb-item active" aria-current="page">Youth Events</li>
+          <li class="breadcrumb-item"><a href="{% url 'general_events_user_bookings_list' %}">Bookings</a></li>
+          <li class="breadcrumb-item active" aria-current="page">General Events</li>
         </ol>
         <hr>
       </nav>
@@ -21,63 +22,58 @@
 <div class="container-fluid">
   <div class="row my-5">
     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-      <h2 class="display-4">Youth Events</h2>
+      <h2 class="display-4">General Events Bookings</h2>
     </div>
   </div>
 </div>
 
-{# Search & tags #}
+{# Filter Bookings Nav #}
 <div class="container-fluid">
-  <div class="row mt-4">
-    <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
-      <div class="row">
-        <div class="col-md-12">
-          <label for="query">
-            <h5>Search</h5>
-          </label>
-        </div>
+  <div class="row my-5">
+    <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12 col-12">
+      <div class="form-group">
+        <a href="{% url 'general_events_user_bookings_list' %}" class="btn btn-lg btn-block btn-primary">General
+          Events</a>
       </div>
-      <div class="row">
-        <div class="form-group col-md-12">
-          <form method="GET" action="">
-            <div class="input-group input-group-lg mb-3">
-              <input type="text" name="query" value="{{ request.GET.query }}" class="form-control"
-                placeholder="Search by title or status"
-                aria-label="Search by title or status" aria-describedby="button-search" />
-              <div class="input-group-append">
-                <button class="btn btn-primary" type="submit" value="Search" id="button-search"><i
-                    class="fal fa-search"></i></button>
-              </div>
-            </div>
-          </form>
-        </div>
+    </div>
+    <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12 col-12">
+      <div class="form-group">
+        <a href="{% url 'youth_events_user_bookings_list' %}" class="btn btn-lg btn-block btn-outline-primary">Youth
+          Events</a>
       </div>
     </div>
   </div>
 </div>
 
-{# Event Navbar #}
-{% include "events/event-navbar.html" %}
+{# Divider #}
+<div class="container-fluid">
+  <div class="row my-5">
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+      <hr>
+    </div>
+  </div>
+</div>
 
-{# Event List #}
+{# Current Bookings #}
 <div class="container-fluid">
   <div class="row mt-4">
-    {% for event in events %}
+    {% for event_booking in event_bookings %}
     <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12 mb-4">
-      <a href="{% url 'youth_events_booking' slug=event.slug %}">
+      <a href="{% url 'general_event_user_booking_detail' slug=event_booking.event.slug %}">
         <div class="card bg-light border-0 h-100">
-          {% if event.image %}
-          <img src="{% static 'global/images/placeholders/image-placeholder.jpg' %}" data-src="{{ event.image.url }}"
-            loading="lazy" alt="{{ event.image.name }}" class="lazy img-fluid card-img-top feed" width="100%">
+          {% if event_booking.event.image %}
+          <img src="{% static 'global/images/placeholders/image-placeholder.jpg' %}"
+            data-src="{{ event_booking.event.image.url }}" loading="lazy" alt="{{ event_booking.event.image.name }}"
+            class="lazy img-fluid card-img-top feed" width="100%">
           {% endif %}
           <div class="card-body">
             <div class="card-title">
-              {{ event.title }}
+              {{ event_booking.event.title }}
             </div>
           </div>
           <div class="card-footer text-dark bg-light border-0">
             <div class="float-left">
-              {{ event.status }}
+              {{ event_booking.event.status }}
             </div>
             <div class="float-right"><i class="fal fa-arrow-right fa-lg"></i></div>
           </div>
@@ -104,7 +100,7 @@
   <div class="row mt-4">
     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
       <div class="float-right">
-        {% with events as items %} {% include "include/paginator.html" %} {% endwith %}
+        {% with event_bookings as items %} {% include "include/paginator.html" %} {% endwith %}
       </div>
     </div>
   </div>

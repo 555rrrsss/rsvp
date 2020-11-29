@@ -4,6 +4,7 @@ from .models import *
 
 # Register your models here.
 
+
 # General Event Agenda Inline
 class GeneralEventAgendaInline(admin.TabularInline):
     model = GeneralEventAgenda
@@ -15,14 +16,14 @@ class GeneralEventAgendaInline(admin.TabularInline):
 class GeneralEventBookingInline(admin.TabularInline):
     model = GeneralEventBooking
     list_display = ('first_name', 'last_name', 'email', 'phone_number',
-                    'adult_bookings', 'children_bookings', 'booking_date')
-
+                    'adult_bookings', 'children_bookings',)
+    readonly_fields = ['booking_date', 'modified_date']
 
 # General Event
 class GeneralEventAdmin(admin.ModelAdmin):
     inlines = [GeneralEventAgendaInline, GeneralEventBookingInline, ]
     prepopulated_fields = {"slug": ("title",)}
-    list_display = ('title', 'status', 'start_date', 'description')
+    list_display = ('title', 'status', 'start_date',)
     search_fields = ('title', 'status',)
     list_filter = ('status',)
     date_hierarchy = 'start_date'
@@ -43,7 +44,8 @@ class YouthEventAgendaInline(admin.TabularInline):
 # Youth Event Booking Inline
 class YouthEventBookingInline(admin.TabularInline):
     model = YouthEventBooking
-    list_display = ('first_name', 'last_name', 'email', 'phone_number', 'bookings')
+    list_display = ('first_name', 'last_name', 'email', 'phone_number', 'bookings',)
+    readonly_fields = ['booking_date', 'modified_date']
 
 
 # Youth Event
@@ -51,7 +53,7 @@ class YouthEventAdmin(admin.ModelAdmin):
     inlines = [YouthEventAgendaInline, YouthEventBookingInline, ]
     prepopulated_fields = {"slug": ("title",)}
     list_display = ('title', 'status', 'age_group',
-                    'start_date', 'description')
+                    'start_date',)
     search_fields = ('title', 'status',)
     list_filter = ('status',)
     date_hierarchy = 'start_date'
@@ -61,3 +63,4 @@ class YouthEventAdmin(admin.ModelAdmin):
 
 
 admin.site.register(YouthEvent, YouthEventAdmin)
+

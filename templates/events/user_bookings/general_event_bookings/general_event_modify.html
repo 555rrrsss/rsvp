@@ -1,4 +1,4 @@
-{% extends 'events/root.html' %} {% block title %}{{ event.event.title }}{% endblock %} {% block content %}
+{% extends 'events/root.html' %} {% block title %}{{ event.event.title }} Modify{% endblock %} {% block content %}
 {% load static %}
 
 {# Breadcrumbs #}
@@ -9,9 +9,12 @@
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="{% url 'index' %}">Home</a></li>
           <li class="breadcrumb-item"><a href="{% url 'events' %}">Events</a></li>
-          <li class="breadcrumb-item"><a href="{% url 'events_user_bookings' %}">Bookings</a></li>
-          <li class="breadcrumb-item"><a href="{% url 'events_user_bookings' %}">{{ event.event.title }}</a></li>
-          <li class="breadcrumb-item active" aria-current="page">Modify Event</li>
+          <li class="breadcrumb-item"><a href="{% url 'general_events_user_bookings_list' %}">Bookings</a></li>
+          <li class="breadcrumb-item"><a href="{% url 'general_events_user_bookings_list' %}">General Events</a></li>
+          <li class="breadcrumb-item"><a
+              href="{% url 'general_event_user_booking_detail' slug=event.event.slug %}">{{ event.event.title }}</a>
+          </li>
+          <li class="breadcrumb-item active" aria-current="page">Modify</li>
         </ol>
         <hr>
       </nav>

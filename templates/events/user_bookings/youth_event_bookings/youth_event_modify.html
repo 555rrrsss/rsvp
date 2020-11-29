@@ -1,4 +1,4 @@
-{% extends 'events/root.html' %} {% block title %}{{ event.title }}{% endblock %} {% block content %}
+{% extends 'events/root.html' %} {% block title %}{{ event.event.title }} Modify{% endblock %} {% block content %}
 {% load static %}
 
 {# Breadcrumbs #}
@@ -9,9 +9,13 @@
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="{% url 'index' %}">Home</a></li>
           <li class="breadcrumb-item"><a href="{% url 'events' %}">Events</a></li>
-          <li class="breadcrumb-item"><a href="{% url 'events_user_bookings' %}">Bookings</a></li>
-          <li class="breadcrumb-item"><a href="{% url 'events_user_bookings' %}">{{ event.title }}</a></li>
-          <li class="breadcrumb-item active" aria-current="page">Modify Event</li>
+          <li class="breadcrumb-item"><a href="{% url 'general_events_user_bookings_list' %}">Bookings</a></li>
+          <li class="breadcrumb-item"><a href="{% url 'youth_events_user_bookings_list' %}">Youth Events</a>
+          </li>
+          <li class="breadcrumb-item"><a
+              href="{% url 'youth_event_user_booking_detail' slug=event.event.slug %}">{{ event.event.title }}</a>
+          </li>
+          <li class="breadcrumb-item active" aria-current="page">Modify</li>
         </ol>
         <hr>
       </nav>
@@ -23,18 +27,18 @@
 <div class="container-fluid">
   <div class="row my-5">
     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-      <h2 class="display-4">{{ event.title }}</h2>
+      <h2 class="display-4">{{ event.event.title }}</h2>
     </div>
   </div>
 </div>
 
 {# Image #}
-{% if event.image %}
+{% if event.event.image %}
 <div class="container-fluid">
   <div class="row mt-4">
     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-      <img src="{% static 'global/images/placeholders/image-placeholder.jpg' %}" data-src="{{ event.image.url }}"
-        loading="lazy" alt="{{ event.image.name }}" class="lazy img" width="100%">
+      <img src="{% static 'global/images/placeholders/image-placeholder.jpg' %}" data-src="{{ event.event.image.url }}"
+        loading="lazy" alt="{{ event.event.image.name }}" class="lazy img" width="100%">
     </div>
   </div>
 </div>
@@ -61,10 +65,10 @@
       <div class="form-group">
         <ul class="list-group">
           <li class="list-group-item bg-light">Status:</li>
-          {% if event.status == 'Open' %}
-          <li class="list-group-item text-success">{{ event.status }}</li>
+          {% if event.event.status == 'Open' %}
+          <li class="list-group-item text-success">{{ event.event.status }}</li>
           {% else %}
-          <li class="list-group-item text-danger">{{ event.status }}</li>
+          <li class="list-group-item text-danger">{{ event.event.status }}</li>
           {% endif %}
         </ul>
       </div>
@@ -73,16 +77,16 @@
       <div class="form-group">
         <ul class="list-group">
           <li class="list-group-item bg-light">Booking Deadline:</li>
-          <li class="list-group-item">{{ event.booking_deadline }}</li>
+          <li class="list-group-item">{{ event.event.booking_deadline }}</li>
         </ul>
       </div>
     </div>
-    {% if event.available_slots %}
+    {% if event.event.available_slots %}
     <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12">
       <div class="form-group">
         <ul class="list-group">
           <li class="list-group-item bg-light">Available Slots:</li>
-          <li class="list-group-item">{{ event.available_slots }}</li>
+          <li class="list-group-item">{{ event.event.available_slots }}</li>
         </ul>
       </div>
     </div>
@@ -91,16 +95,16 @@
       <div class="form-group">
         <ul class="list-group">
           <li class="list-group-item bg-light">Event Start Date:</li>
-          <li class="list-group-item">{{ event.start_date }}</li>
+          <li class="list-group-item">{{ event.event.start_date }}</li>
         </ul>
       </div>
     </div>
-    {% if event.end_date %}
+    {% if event.event.end_date %}
     <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12">
       <div class="form-group">
         <ul class="list-group">
           <li class="list-group-item bg-light">Event End Date:</li>
-          <li class="list-group-item">{{ event.end_date }}</li>
+          <li class="list-group-item">{{ event.event.end_date }}</li>
         </ul>
       </div>
     </div>
@@ -109,7 +113,7 @@
       <div class="form-group">
         <ul class="list-group">
           <li class="list-group-item bg-light">Age Group:</li>
-          <li class="list-group-item">{{ event.age_group }}</li>
+          <li class="list-group-item">{{ event.event.age_group }}</li>
         </ul>
       </div>
     </div>
@@ -117,7 +121,7 @@
       <div class="form-group">
         <ul class="list-group">
           <li class="list-group-item bg-light">Fee:</li>
-          <li class="list-group-item">€ {{ event.fee }}</li>
+          <li class="list-group-item">€ {{ event.event.fee }}</li>
         </ul>
       </div>
     </div>
@@ -125,85 +129,7 @@
 </div>
 
 {# Divider #}
-<div class="container-fluid">
-  <div class="row my-5">
-    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-      <hr>
-    </div>
-  </div>
-</div>
-
-{# Description #}
-{% if event.description %}
-<div class="container-fluid">
-  <div class="row mt-4">
-    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
-      <h4 class="font-weight-bold">Description:</h4>
-    </div>
-  </div>
-  <div class="row mt-4">
-    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-      <p>{{ event.description }}</p>
-    </div>
-  </div>
-</div>
-{% endif %}
-
-{# Divider #}
-{% if event.generaleventagenda_set.all %}
-<div class="container-fluid">
-  <div class="row my-5">
-    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-      <hr>
-    </div>
-  </div>
-</div>
-{% endif %}
-
-{# Agenda #}
-{% if event.generaleventagenda_set.all %}
-<div class="container-fluid">
-  <div class="row mt-4">
-    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
-      <h4 class="font-weight-bold">Agenda:</h4>
-    </div>
-  </div>
-  <div class="row mt-4">
-    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
-      <p>Please keep in mind, Agenda is subject to change.</p>
-    </div>
-  </div>
-  <div class="row mt-4">
-    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-      <div class="table-responsive">
-        <table class="table table-hover">
-          <thead class="thead-light">
-            <tr>
-              <th scope="col" colspan="4">Lineup</th>
-              <th scope="col" colspan="4">Date</th>
-              <th scope="col" colspan="4">Start Time</th>
-              <th scope="col" colspan="4">End Time</th>
-            </tr>
-          </thead>
-          <tbody>
-            {% for event in event.generaleventagenda_set.all %}
-            <tr>
-              <td colspan="4">{{ event.lineup }}</td>
-              <td colspan="4">{{ event.date }}</td>
-              <td colspan="4">{{ event.start_time }}</td>
-              <td colspan="4">{{ event.end_time }}</td>
-            </tr>
-            {% endfor %}
-          </tbody>
-        </table>
-      </div>
-    </div>
-  </div>
-</div>
-{% endif %}
-
-{# Divider #}
-{% if event.important_note %}
+{% if event.event.important_note %}
 <div class="container-fluid">
   <div class="row my-5">
     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
@@ -214,7 +140,7 @@
 {% endif %}
 
 {# Important Note #}
-{% if event.important_note %}
+{% if event.event.important_note %}
 <div class="container-fluid">
   <div class="row mt-4">
     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
@@ -223,7 +149,7 @@
   </div>
   <div class="row mt-4">
     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-      <p>{{ event.important_note }}</p>
+      <p>{{ event.event.important_note }}</p>
     </div>
   </div>
 </div>
@@ -246,14 +172,14 @@
     </div>
   </div>
   <div class="row mt-4">
-    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
       <p>Please note, we do not process payments online. All payments are done off-line only to avoid unnecessary
         charges and confusion.</p>
     </div>
   </div>
   <div class="row mt-2">
     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-      {% if event.status == 'Open' %}
+      {% if event.event.status == 'Open' %}
       <form method="post" oninput="totalprice.value=parseInt(id_bookings.value*{{ event.fee }})">
 
         {% csrf_token %}
@@ -281,7 +207,7 @@
           </div>
         </div>
 
-        <div class="row">
+        <div class="row mt-2">
           <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
             <div class="form-group">
               <label for="totalprice">Total Price:</label>
@@ -289,7 +215,7 @@
                 <span class="input-group-prepend">
                   <span class="input-group-text">€</span>
                 </span>
-                <output name="totalprice" for="id_bookings" class="form-control"></output>
+                <output name="totalprice" for="id_adult_bookings id_children_bookings" class="form-control"></output>
                 <span class="input-group-append">
                   <span class="input-group-text">.00</span>
                 </span>

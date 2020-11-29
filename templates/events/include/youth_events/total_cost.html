@@ -1,0 +1,8 @@
+{# Youth Events - Total Owed Calculation #}
+
+<script>
+    var fee = "{{ event.fee }}";
+    var bookings = "{{ event_booking.bookings }}";
+    var total_price = fee * bookings;
+    document.getElementById("total_fee").innerHTML = "€ " + total_price;
+</script>

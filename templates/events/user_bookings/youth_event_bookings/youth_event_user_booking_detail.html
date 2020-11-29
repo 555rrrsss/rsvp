@@ -1,4 +1,4 @@
-{% extends 'events/root.html' %} {% block title %}Booking Complete{% endblock %} {% block content %}
+{% extends 'events/root.html' %} {% block title %}{{ event.title }} Booking{% endblock %} {% block content %}
 {% load static %}
 
 {# Breadcrumbs #}
@@ -9,7 +9,10 @@
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{% url 'index' %}">Home</a></li>
                     <li class="breadcrumb-item"><a href="{% url 'events' %}">Events</a></li>
-                    <li class="breadcrumb-item"><a href="{% url 'events_user_bookings' %}">Bookings</a></li>
+                    <li class="breadcrumb-item"><a href="{% url 'general_events_user_bookings_list' %}">Bookings</a>
+                    </li>
+                    <li class="breadcrumb-item"><a href="{% url 'youth_events_user_bookings_list' %}">Youth Events</a>
+                    </li>
                     <li class="breadcrumb-item active" aria-current="page">{{ event.title }}</li>
                 </ol>
                 <hr>
@@ -38,7 +41,8 @@
         </div>
         <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12 col-12">
             <div class="form-group">
-                <a href="" class="btn btn-lg btn-block btn-outline-secondary">Modify</a>
+                <a href="{% url 'youth_events_booking_modify' event.slug %}"
+                    class="btn btn-lg btn-block btn-outline-secondary">Modify</a>
             </div>
         </div>
         <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12 col-12">
@@ -60,7 +64,7 @@
                                 Are you sure you want to Cancel this booking?
                                 <div class="font-weight-bold">This cannot be undone.</div>
                             </div>
-                            <form action="{% url 'events_user_booking_youth_event_info' event.slug %}" method='POST'>
+                            <form action="{% url 'youth_event_user_booking_detail' event.slug %}" method='POST'>
                                 <div class="modal-footer">
                                     {% csrf_token %}
                                     <div class="form-group">
@@ -117,6 +121,38 @@
         </div>
     </div>
     <div class="row mt-4">
+        <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12">
+            <div class="form-group">
+                <ul class="list-group">
+                    <li class="list-group-item bg-light">First Name:</li>
+                    <li class="list-group-item">{{ event_booking.first_name }}</li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12">
+            <div class="form-group">
+                <ul class="list-group">
+                    <li class="list-group-item bg-light">Last Name:</li>
+                    <li class="list-group-item">{{ event_booking.last_name }}</li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12">
+            <div class="form-group">
+                <ul class="list-group">
+                    <li class="list-group-item bg-light">E-mail:</li>
+                    <li class="list-group-item">{{ event_booking.email }}</li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12">
+            <div class="form-group">
+                <ul class="list-group">
+                    <li class="list-group-item bg-light">Phone Number:</li>
+                    <li class="list-group-item">{{ event_booking.phone_number }}</li>
+                </ul>
+            </div>
+        </div>
         <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
             <div class="form-group">
                 <ul class="list-group">
@@ -129,7 +165,15 @@
             <div class="form-group">
                 <ul class="list-group">
                     <li class="list-group-item bg-light">Booking Date:</li>
-                    <li class="list-group-item">{{ general_event_booking.booking_date }}</li>
+                    <li class="list-group-item">{{ event_booking.booking_date }}</li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12">
+            <div class="form-group">
+                <ul class="list-group">
+                    <li class="list-group-item bg-light">Bookings:</li>
+                    <li class="list-group-item">{{ event_booking.bookings }}</li>
                 </ul>
             </div>
         </div>
@@ -137,23 +181,7 @@
             <div class="form-group">
                 <ul class="list-group">
                     <li class="list-group-item bg-light">Total Owed:</li>
-                    <li class="list-group-item">{{ event.total_price }}</li>
-                </ul>
-            </div>
-        </div>
-        <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12">
-            <div class="form-group">
-                <ul class="list-group">
-                    <li class="list-group-item bg-light">Adult Bookings:</li>
-                    <li class="list-group-item">{{ event.adult_bookings }}</li>
-                </ul>
-            </div>
-        </div>
-        <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12">
-            <div class="form-group">
-                <ul class="list-group">
-                    <li class="list-group-item bg-light">Kides Bookings:</li>
-                    <li class="list-group-item">{{ event.children_bookings }}</li>
+                    <li class="list-group-item" id="total_fee"></li>
                 </ul>
             </div>
         </div>
@@ -198,20 +226,23 @@
         <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12">
             <div class="form-group">
                 <ul class="list-group">
-                    <li class="list-group-item bg-light">Adult Fee:</li>
-                    <li class="list-group-item">€ {{ event.adult_fee }}</li>
+                    <li class="list-group-item bg-light">Age Group:</li>
+                    <li class="list-group-item">{{ event.age_group }}</li>
                 </ul>
             </div>
         </div>
         <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12">
             <div class="form-group">
                 <ul class="list-group">
-                    <li class="list-group-item bg-light">Kides Fee:</li>
-                    <li class="list-group-item">€ {{ event.kids_fee }}</li>
+                    <li class="list-group-item bg-light">Fee:</li>
+                    <li class="list-group-item">€ {{ event.fee }}</li>
                 </ul>
             </div>
         </div>
     </div>
 </div>
+
+{# Total Owed Calculation #}
+{% include "events/include/youth_events/total_cost.html" %}
 
 {% endblock %}

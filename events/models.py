@@ -72,11 +72,11 @@ class BaseEvent(models.Model):
     def is_limited(self):
         return self.availability == 'Limited'
 
-    # def is_full(self):
-    #     return self.is_limited and self.baseeventbooking_set.all().count() >= self.slots
+    def is_full(self):
+        return self.is_limited and GeneralEventBooking.adult_bookings.count() >= self.slots
 
-    # def is_closed_for_bookings(self):
-    #     return True if self.is_full() or self.booking_deadline_has_passed() else False
+    def is_closed_for_bookings(self):
+        return True if self.is_full() or self.booking_deadline_has_passed() else False
 
     def __str__(self):
         return self.title
@@ -96,7 +96,9 @@ class BaseEventBooking(models.Model):
     phone_number = PhoneNumberField(
         max_length=15, help_text="Phone number, mobile or landline.")
     booking_date = models.DateTimeField(
-        default=timezone.now, help_text="Date of booking.")
+        default=timezone.now, help_text="Date of creation.")
+    modified_date = models.DateTimeField(
+        auto_now=True, help_text="Occurrence of the most recent update to this booking.")
 
     def __str__(self):
         return self.first_name + self.last_name

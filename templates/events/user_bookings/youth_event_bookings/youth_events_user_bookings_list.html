@@ -1,0 +1,109 @@
+{% extends 'events/root.html' %} {% block title %}Youth Events Bookings{% endblock %} {% block content %}
+{% load static %}
+
+{# Breadcrumbs #}
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="{% url 'index' %}">Home</a></li>
+          <li class="breadcrumb-item"><a href="{% url 'events' %}">Events</a></li>
+          <li class="breadcrumb-item"><a href="{% url 'general_events_user_bookings_list' %}">Bookings</a></li>
+          <li class="breadcrumb-item active" aria-current="page">Youth Events</li>
+        </ol>
+        <hr>
+      </nav>
+    </div>
+  </div>
+</div>
+
+{# Banner #}
+<div class="container-fluid">
+  <div class="row my-5">
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+      <h2 class="display-4">Youth Events Bookings</h2>
+    </div>
+  </div>
+</div>
+
+{# Filter Bookings Nav #}
+<div class="container-fluid">
+  <div class="row my-5">
+    <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12 col-12">
+      <div class="form-group">
+        <a href="{% url 'general_events_user_bookings_list' %}" class="btn btn-lg btn-block btn-outline-primary">General
+          Events</a>
+      </div>
+    </div>
+    <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12 col-12">
+      <div class="form-group">
+        <a href="{% url 'youth_events_user_bookings_list' %}" class="btn btn-lg btn-block btn-primary">Youth
+          Events</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+{# Divider #}
+<div class="container-fluid">
+  <div class="row my-5">
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+      <hr>
+    </div>
+  </div>
+</div>
+
+{# Current Bookings #}
+<div class="container-fluid">
+  <div class="row mt-4">
+    {% for event_booking in event_bookings %}
+    <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12 mb-4">
+      <a href="{% url 'youth_event_user_booking_detail' slug=event_booking.event.slug %}">
+        <div class="card bg-light border-0 h-100">
+          {% if event_booking.event.image %}
+          <img src="{% static 'global/images/placeholders/image-placeholder.jpg' %}"
+            data-src="{{ event_booking.event.image.url }}" loading="lazy" alt="{{ event_booking.event.image.name }}"
+            class="lazy img-fluid card-img-top feed" width="100%">
+          {% endif %}
+          <div class="card-body">
+            <div class="card-title">
+              {{ event_booking.event.title }}
+            </div>
+          </div>
+          <div class="card-footer text-dark bg-light border-0">
+            <div class="float-left">
+              {{ event_booking.event.status }}
+            </div>
+            <div class="float-right"><i class="fal fa-arrow-right fa-lg"></i></div>
+          </div>
+        </div>
+      </a>
+    </div>
+    {% empty %}
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+      <div class="card bg-info text-dark font-weight-bold">
+        <div class="card-body py-5">
+          <p class="card-text">
+            <i class="fal fa-exclamation-triangle font-weight-bold  mr-2"></i>
+            Sorry, we couldn't find anything. Try checking back later.
+          </p>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+
+{# Paginator #}
+<div class="container-fluid">
+  <div class="row mt-4">
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+      <div class="float-right">
+        {% with event_bookings as items %} {% include "include/paginator.html" %} {% endwith %}
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

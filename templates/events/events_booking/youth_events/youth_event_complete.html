@@ -1,0 +1,217 @@
+{% extends 'events/root.html' %} {% block title %}Booking Complete{% endblock %} {% block content %}
+{% load static %}
+
+{# Breadcrumbs #}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{% url 'index' %}">Home</a></li>
+                    <li class="breadcrumb-item"><a href="{% url 'events' %}">Events</a></li>
+                    <li class="breadcrumb-item"><a href="{% url 'youth_events' %}">Youth Events</a></li>
+                    <li class="breadcrumb-item"><a
+                            href="{% url 'youth_events_booking' slug=event.slug %}">{{ event.title }}</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Booking Complete</li>
+                </ol>
+                <hr>
+            </nav>
+        </div>
+    </div>
+</div>
+
+{# Banner #}
+<div class="container-fluid">
+    <div class="row my-5">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+            <h2 class="display-4">Booking Complete</h2>
+        </div>
+    </div>
+</div>
+
+{# Options #}
+<div class="container-fluid">
+    <div class="row my-5">
+        <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12 col-12">
+            <div class="form-group">
+                <button onclick="window.print()" class="btn btn-lg btn-block btn-outline-primary">Download
+                    Receipt</button>
+            </div>
+        </div>
+        <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12 col-12">
+            <div class="form-group">
+                <a href="{% url 'general_events_user_bookings_list' %}"
+                    class="btn btn-lg btn-block btn-outline-primary">Manage
+                    Bookings</a>
+            </div>
+        </div>
+        <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12 col-12">
+            <div class="form-group">
+                <a href="{% url 'events' %}" class="btn btn-lg btn-block btn-outline-primary">View More Events</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+{# Divider #}
+<div class="container-fluid">
+    <div class="row my-5">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+            <hr>
+        </div>
+    </div>
+</div>
+
+{# Payment info #}
+<div class="container-fluid">
+    <div class="row mt-4">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+            <p>You're booking has been processed.</p>
+            <p>Please note, all payments (if any) are done off-line to avoid unnecessary charges and confusion. Ensure
+                you pay in advance or on the day of the event.</p>
+        </div>
+    </div>
+</div>
+
+{# Divider #}
+<div class="container-fluid">
+    <div class="row my-5">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+            <hr>
+        </div>
+    </div>
+</div>
+
+{# Booking Info #}
+<div class="container-fluid">
+    <div class="row mt-4">
+        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+            <h4 class="font-weight-bold">Booking Information:</h4>
+        </div>
+    </div>
+    <div class="row mt-4">
+        <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12">
+            <div class="form-group">
+                <ul class="list-group">
+                    <li class="list-group-item bg-light">First Name:</li>
+                    <li class="list-group-item">{{ event_booking.first_name }}</li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12">
+            <div class="form-group">
+                <ul class="list-group">
+                    <li class="list-group-item bg-light">Last Name:</li>
+                    <li class="list-group-item">{{ event_booking.last_name }}</li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12">
+            <div class="form-group">
+                <ul class="list-group">
+                    <li class="list-group-item bg-light">E-mail:</li>
+                    <li class="list-group-item">{{ event_booking.email }}</li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12">
+            <div class="form-group">
+                <ul class="list-group">
+                    <li class="list-group-item bg-light">Phone Number:</li>
+                    <li class="list-group-item">{{ event_booking.phone_number }}</li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
+            <div class="form-group">
+                <ul class="list-group">
+                    <li class="list-group-item bg-light">Event Booked:</li>
+                    <li class="list-group-item">{{ event.title }}</li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12">
+            <div class="form-group">
+                <ul class="list-group">
+                    <li class="list-group-item bg-light">Booking Date:</li>
+                    <li class="list-group-item">{{ event_booking.booking_date }}</li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12">
+            <div class="form-group">
+                <ul class="list-group">
+                    <li class="list-group-item bg-light">Bookings:</li>
+                    <li class="list-group-item">{{ event_booking.bookings }}</li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12">
+            <div class="form-group">
+                <ul class="list-group">
+                    <li class="list-group-item bg-light">Total Owed:</li>
+                    <li class="list-group-item" id="total_fee"></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+{# Divider #}
+<div class="container-fluid">
+    <div class="row my-5">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+            <hr>
+        </div>
+    </div>
+</div>
+
+{# Event Info #}
+<div class="container-fluid">
+    <div class="row mt-4">
+        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+            <h4 class="font-weight-bold">Event Information:</h4>
+        </div>
+    </div>
+    <div class="row mt-4">
+        <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12">
+            <div class="form-group">
+                <ul class="list-group">
+                    <li class="list-group-item bg-light">Event Start Date:</li>
+                    <li class="list-group-item">{{ event.start_date }}</li>
+                </ul>
+            </div>
+        </div>
+        {% if event.end_date %}
+        <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12">
+            <div class="form-group">
+                <ul class="list-group">
+                    <li class="list-group-item bg-light">Event End Date:</li>
+                    <li class="list-group-item">{{ event.end_date }}</li>
+                </ul>
+            </div>
+        </div>
+        {% endif %}
+        <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12">
+            <div class="form-group">
+                <ul class="list-group">
+                    <li class="list-group-item bg-light">Age Group:</li>
+                    <li class="list-group-item">{{ event.age_group }}</li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12">
+            <div class="form-group">
+                <ul class="list-group">
+                    <li class="list-group-item bg-light">Fee:</li>
+                    <li class="list-group-item">€ {{ event.fee }}</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+{# Total Owed Calculation #}
+{% include "events/include/youth_events/total_cost.html" %}
+
+{% endblock %}

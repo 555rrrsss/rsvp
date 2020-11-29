@@ -42,8 +42,8 @@
           <form method="GET" action="">
             <div class="input-group input-group-lg mb-3">
               <input type="text" name="query" value="{{ request.GET.query }}" class="form-control"
-                placeholder="Search by title or status"
-                aria-label="Search by title or status" aria-describedby="button-search" />
+                placeholder="Search by title or status" aria-label="Search by title or status"
+                aria-describedby="button-search" />
               <div class="input-group-append">
                 <button class="btn btn-primary" type="submit" value="Search" id="button-search"><i
                     class="fal fa-search"></i></button>
@@ -57,7 +57,7 @@
 </div>
 
 {# Event Navbar #}
-{% include "events/event-navbar.html" %}
+{% include "events/events_booking/event_navbar.html" %}
 
 {# Event List #}
 <div class="container-fluid">
